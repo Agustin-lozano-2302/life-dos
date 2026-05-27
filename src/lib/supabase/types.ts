@@ -44,6 +44,57 @@ export type Database = {
         }
         Relationships: []
       }
+      goals: {
+        Row: {
+          created_at: string
+          current_value: number
+          deadline: string | null
+          id: string
+          linked_daily_task_id: string | null
+          linked_project_id: string | null
+          target_value: number
+          title: string
+          unit: string
+        }
+        Insert: {
+          created_at?: string
+          current_value?: number
+          deadline?: string | null
+          id?: string
+          linked_daily_task_id?: string | null
+          linked_project_id?: string | null
+          target_value: number
+          title: string
+          unit: string
+        }
+        Update: {
+          created_at?: string
+          current_value?: number
+          deadline?: string | null
+          id?: string
+          linked_daily_task_id?: string | null
+          linked_project_id?: string | null
+          target_value?: number
+          title?: string
+          unit?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "goals_linked_daily_task_id_fkey"
+            columns: ["linked_daily_task_id"]
+            isOneToOne: false
+            referencedRelation: "daily_tasks"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "goals_linked_project_id_fkey"
+            columns: ["linked_project_id"]
+            isOneToOne: false
+            referencedRelation: "projects"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       project_tasks: {
         Row: {
           created_at: string
