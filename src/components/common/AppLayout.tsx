@@ -1,0 +1,17 @@
+import { Outlet } from 'react-router-dom'
+import { AppHeader } from './AppHeader'
+import { BottomNav } from './BottomNav'
+
+export function AppLayout() {
+  return (
+    <div className="flex h-dvh flex-col bg-background text-foreground">
+      <AppHeader />
+      <main className="flex-1 overflow-y-auto">
+        <div className="mx-auto max-w-2xl px-4 py-4">
+          <Outlet />
+        </div>
+      </main>
+      <BottomNav />
+    </div>
+  )
+}
