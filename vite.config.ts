@@ -10,6 +10,12 @@ export default defineConfig({
     tailwindcss(),
     VitePWA({
       registerType: 'autoUpdate',
+      // Use injectManifest strategy to avoid workbox-build generating ESM imports
+      // with the absolute Windows path (which contains an apostrophe that breaks
+      // JS string parsing when the project lives in "Life Do's").
+      strategies: 'injectManifest',
+      srcDir: 'src',
+      filename: 'sw.ts',
       manifest: {
         name: "Life Do's",
         short_name: "Life Do's",
@@ -27,7 +33,7 @@ export default defineConfig({
           },
         ],
       },
-      workbox: {
+      injectManifest: {
         globPatterns: ['**/*.{js,css,html,ico,png,svg,woff2}'],
       },
     }),
