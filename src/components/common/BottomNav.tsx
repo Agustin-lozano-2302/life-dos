@@ -1,4 +1,4 @@
-import { FileText, LayoutGrid, Target, Zap } from 'lucide-react'
+import { BarChart2, FileText, LayoutGrid, Target, Zap } from 'lucide-react'
 import { NavLink } from 'react-router-dom'
 import { cn } from '@/lib/utils'
 
@@ -7,6 +7,7 @@ const tabs = [
   { to: '/projects', label: 'Projects', Icon: LayoutGrid },
   { to: '/goals', label: 'Goals', Icon: Target },
   { to: '/notes', label: 'Notes', Icon: FileText },
+  { to: '/dashboard', label: 'Dashboard', Icon: BarChart2 },
 ] as const
 
 export function BottomNav() {
