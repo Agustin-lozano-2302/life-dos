@@ -8,10 +8,7 @@ import {
 } from '@/lib/supabase/queries/daily-tasks'
 import type { CreateTaskInput, UpdateTaskInput } from '@/types/daily-tasks'
 import type { TaskCompletion } from '@/types/daily-tasks'
-
-function getTodayString() {
-  return new Date().toISOString().slice(0, 10)
-}
+import { getTodayString } from '@/utils/date'
 
 export function useTaskMutations() {
   const queryClient = useQueryClient()

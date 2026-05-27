@@ -1,9 +1,6 @@
 import { useQuery } from '@tanstack/react-query'
 import { fetchTodayTasks, fetchTodayCompletions } from '@/lib/supabase/queries/daily-tasks'
-
-function getTodayString() {
-  return new Date().toISOString().slice(0, 10)
-}
+import { getTodayString } from '@/utils/date'
 
 export function useTodayTasks() {
   const today = getTodayString()
