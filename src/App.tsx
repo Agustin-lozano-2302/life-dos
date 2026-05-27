@@ -4,6 +4,7 @@ import FocusPage from '@/pages/FocusPage'
 import GoalsPage from '@/pages/GoalsPage'
 import NotesPage from '@/pages/NotesPage'
 import ProjectsPage from '@/pages/ProjectsPage'
+import ProjectBoardPage from '@/pages/ProjectBoardPage'
 import TasksManagePage from '@/pages/TasksManagePage'
 
 export default function App() {
@@ -14,6 +15,7 @@ export default function App() {
         <Route path="focus" element={<FocusPage />} />
         <Route path="focus/manage" element={<TasksManagePage />} />
         <Route path="projects" element={<ProjectsPage />} />
+        <Route path="projects/:id" element={<ProjectBoardPage />} />
         <Route path="goals" element={<GoalsPage />} />
         <Route path="notes" element={<NotesPage />} />
       </Route>
