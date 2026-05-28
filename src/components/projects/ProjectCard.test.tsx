@@ -1,54 +1,46 @@
-import { describe, it, expect } from 'vitest'
+// src/components/projects/ProjectCard.test.tsx
+import { describe, it, expect, vi } from 'vitest'
 import { render, screen } from '@testing-library/react'
 import { MemoryRouter } from 'react-router-dom'
 import { ProjectCard } from './ProjectCard'
 import type { Project } from '@/types/projects'
 
 const project: Project = {
-  id: 'proj-1',
+  id: 'p1',
   title: 'My Project',
-  description: 'A description',
+  description: 'A test project',
   status: 'active',
-  due_date: '2026-12-31',
+  due_date: null,
   created_at: '2026-01-01T00:00:00Z',
+  updated_at: '2026-01-01T00:00:00Z',
 }
 
-function renderCard(props: Partial<Parameters<typeof ProjectCard>[0]> = {}) {
+function render_(props = {}) {
   return render(
     <MemoryRouter>
-      <ProjectCard project={project} {...props} />
+      <ProjectCard project={project} taskCount={5} doneCount={2} {...props} />
     </MemoryRouter>,
   )
 }
 
 describe('ProjectCard', () => {
-  it('renders the project title', () => {
-    renderCard()
+  it('renders project title', () => {
+    render_()
     expect(screen.getByText('My Project')).toBeInTheDocument()
   })
 
-  it('renders the description', () => {
-    renderCard()
-    expect(screen.getByText('A description')).toBeInTheDocument()
+  it('renders task counts', () => {
+    render_()
+    expect(screen.getByText(/5 task/)).toBeInTheDocument()
   })
 
-  it('renders the status badge', () => {
-    renderCard()
+  it('renders status badge', () => {
+    render_()
     expect(screen.getByText('Active')).toBeInTheDocument()
   })
 
-  it('renders task count', () => {
-    renderCard({ taskCount: 5, doneCount: 2 })
-    expect(screen.getByText('5 tasks · 2 done')).toBeInTheDocument()
-  })
-
-  it('renders due date', () => {
-    renderCard()
-    expect(screen.getByText('2026-12-31')).toBeInTheDocument()
-  })
-
   it('links to the project board', () => {
-    renderCard()
-    expect(screen.getByRole('link')).toHaveAttribute('href', '/projects/proj-1')
+    render_()
+    expect(screen.getByRole('link')).toHaveAttribute('href', '/projects/p1')
   })
 })

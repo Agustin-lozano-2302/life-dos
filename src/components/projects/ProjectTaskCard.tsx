@@ -1,4 +1,7 @@
-import { Trash2, ChevronRight, ChevronLeft } from 'lucide-react'
+// src/components/projects/ProjectTaskCard.tsx
+import { ChevronLeft, ChevronRight } from 'lucide-react'
+import { GlassCard } from '@/components/common/GlassCard'
+import { DotMenu } from '@/components/common/DotMenu'
 import type { ProjectTask, ProjectTaskStatus } from '@/types/projects'
 
 const STATUS_ORDER: ProjectTaskStatus[] = ['todo', 'in_progress', 'review', 'done']
@@ -14,41 +17,21 @@ export function ProjectTaskCard({ task, onMove, onDelete }: ProjectTaskCardProps
   const canMoveLeft = currentIndex > 0
   const canMoveRight = currentIndex < STATUS_ORDER.length - 1
 
+  const menuItems = [
+    ...(canMoveLeft ? [{ label: 'Mover atrás', icon: <ChevronLeft size={14} />, onClick: () => onMove(task.id, STATUS_ORDER[currentIndex - 1]) }] : []),
+    ...(canMoveRight ? [{ label: 'Mover adelante', icon: <ChevronRight size={14} />, onClick: () => onMove(task.id, STATUS_ORDER[currentIndex + 1]) }] : []),
+    { label: 'Eliminar', destructive: true, onClick: () => onDelete(task.id) },
+  ]
+
   return (
-    <div className="group rounded-lg border border-border bg-card p-3">
-      <p className="mb-2 text-sm font-medium leading-snug">{task.title}</p>
-      {task.description && (
-        <p className="mb-2 text-xs text-muted-foreground line-clamp-2">{task.description}</p>
-      )}
-      <div className="flex items-center justify-between">
-        <div className="flex gap-1">
-          {canMoveLeft && (
-            <button
-              onClick={() => onMove(task.id, STATUS_ORDER[currentIndex - 1])}
-              aria-label="Move left"
-              className="rounded p-0.5 text-muted-foreground transition-colors hover:text-foreground"
-            >
-              <ChevronLeft size={14} />
-            </button>
-          )}
-          {canMoveRight && (
-            <button
-              onClick={() => onMove(task.id, STATUS_ORDER[currentIndex + 1])}
-              aria-label="Move right"
-              className="rounded p-0.5 text-muted-foreground transition-colors hover:text-foreground"
-            >
-              <ChevronRight size={14} />
-            </button>
-          )}
-        </div>
-        <button
-          onClick={() => onDelete(task.id)}
-          aria-label={`Delete ${task.title}`}
-          className="rounded p-0.5 text-muted-foreground opacity-0 transition-all group-hover:opacity-100 hover:text-destructive"
-        >
-          <Trash2 size={12} />
-        </button>
+    <GlassCard tint="indigo" className="p-3">
+      <div className="mb-2 flex items-start justify-between gap-2">
+        <p className="flex-1 text-sm font-medium leading-snug text-white">{task.title}</p>
+        <DotMenu items={menuItems} />
       </div>
-    </div>
+      {task.description && (
+        <p className="text-xs text-white/40 line-clamp-2">{task.description}</p>
+      )}
+    </GlassCard>
   )
 }

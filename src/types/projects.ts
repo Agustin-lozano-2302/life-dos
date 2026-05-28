@@ -8,6 +8,7 @@ export interface Project {
   status: ProjectStatus
   due_date: string | null
   created_at: string
+  updated_at?: string
 }
 
 export interface ProjectTask {
@@ -18,6 +19,7 @@ export interface ProjectTask {
   status: ProjectTaskStatus
   sort_order: number | null
   created_at: string
+  updated_at?: string
 }
 
 export interface CreateProjectInput {
