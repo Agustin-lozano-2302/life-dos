@@ -2,6 +2,7 @@
 import { ChevronLeft, ChevronRight } from 'lucide-react'
 import { GlassCard } from '@/components/common/GlassCard'
 import { DotMenu } from '@/components/common/DotMenu'
+import { AttachmentStrip } from '@/components/common/AttachmentStrip'
 import type { ProjectTask, ProjectTaskStatus } from '@/types/projects'
 
 const STATUS_ORDER: ProjectTaskStatus[] = ['todo', 'in_progress', 'review', 'done']
@@ -32,6 +33,9 @@ export function ProjectTaskCard({ task, onMove, onDelete }: ProjectTaskCardProps
       {task.description && (
         <p className="text-xs text-white/40 line-clamp-2">{task.description}</p>
       )}
+      <div className="mt-2">
+        <AttachmentStrip entityType="project_task" entityId={task.id} />
+      </div>
     </GlassCard>
   )
 }
