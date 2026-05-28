@@ -94,7 +94,7 @@ export default function NotesPage() {
 
       <div className="space-y-3">
         {filtered.map((note) => (
-          <NoteCard key={note.id} note={note} onOpen={handleOpen} onDelete={handleDelete} />
+          <NoteCard key={note.id} note={note} onClick={handleOpen} onDelete={handleDelete} />
         ))}
         {filtered.length === 0 && (
           <p className="py-8 text-center text-sm text-muted-foreground">

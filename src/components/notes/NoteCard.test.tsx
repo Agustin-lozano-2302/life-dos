@@ -15,34 +15,34 @@ const note: Note = {
 
 describe('NoteCard', () => {
   it('renders the note title', () => {
-    render(<NoteCard note={note} onOpen={vi.fn()} onDelete={vi.fn()} />)
+    render(<NoteCard note={note} onClick={vi.fn()} onDelete={vi.fn()} />)
     expect(screen.getByText('Meeting notes')).toBeInTheDocument()
   })
 
   it('renders a preview of the content', () => {
-    render(<NoteCard note={note} onOpen={vi.fn()} onDelete={vi.fn()} />)
-    expect(screen.getByText('We discussed the roadmap for Q3.')).toBeInTheDocument()
+    render(<NoteCard note={note} onClick={vi.fn()} onDelete={vi.fn()} />)
+    expect(screen.getByText(/We discussed the roadmap/)).toBeInTheDocument()
   })
 
   it('renders the category badge', () => {
-    render(<NoteCard note={note} onOpen={vi.fn()} onDelete={vi.fn()} />)
+    render(<NoteCard note={note} onClick={vi.fn()} onDelete={vi.fn()} />)
     expect(screen.getByText('Work')).toBeInTheDocument()
   })
 
-  it('calls onOpen when card is clicked', async () => {
-    const onOpen = vi.fn()
+  it('calls onClick when card body is clicked', async () => {
+    const onClick = vi.fn()
     const user = userEvent.setup()
-    render(<NoteCard note={note} onOpen={onOpen} onDelete={vi.fn()} />)
-    await user.click(screen.getByRole('button', { name: /^open meeting notes/i }))
-    expect(onOpen).toHaveBeenCalledWith(note)
+    render(<NoteCard note={note} onClick={onClick} onDelete={vi.fn()} />)
+    await user.click(screen.getByRole('button', { name: /open meeting notes/i }))
+    expect(onClick).toHaveBeenCalledWith(note)
   })
 
-  it('calls onDelete when ✕ is clicked without opening', async () => {
+  it('calls onDelete when Eliminar menu item is clicked', async () => {
     const onDelete = vi.fn()
-    const onOpen = vi.fn()
     const user = userEvent.setup()
-    render(<NoteCard note={note} onOpen={onOpen} onDelete={onDelete} />)
-    await user.click(screen.getByLabelText(`Delete ${note.title}`))
+    render(<NoteCard note={note} onClick={vi.fn()} onDelete={onDelete} />)
+    await user.click(screen.getByRole('button', { name: /open menu/i }))
+    await user.click(screen.getByRole('menuitem', { name: 'Eliminar' }))
     expect(onDelete).toHaveBeenCalledWith('note-1')
   })
 })
