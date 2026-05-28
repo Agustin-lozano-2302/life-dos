@@ -4,7 +4,7 @@ import { MemoryRouter } from 'react-router-dom'
 import { AppLayout } from './AppLayout'
 
 vi.mock('@/lib/supabase/client', () => ({
-  supabase: {
+  default: {
     auth: {
       getSession: vi.fn().mockResolvedValue({ data: { session: null } }),
       onAuthStateChange: vi.fn().mockReturnValue({ data: { subscription: { unsubscribe: vi.fn() } } }),

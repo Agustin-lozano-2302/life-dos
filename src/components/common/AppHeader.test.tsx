@@ -4,7 +4,7 @@ import userEvent from '@testing-library/user-event'
 import { AppHeader } from './AppHeader'
 
 vi.mock('@/lib/supabase/client', () => ({
-  supabase: {
+  default: {
     auth: {
       getSession: vi.fn().mockResolvedValue({ data: { session: null } }),
       onAuthStateChange: vi.fn().mockReturnValue({ data: { subscription: { unsubscribe: vi.fn() } } }),
