@@ -26,10 +26,10 @@ export default defineConfig({
         start_url: '/',
         icons: [
           {
-            src: '/logos/lifedos-logo-nobg.png',
+            src: '/logos/lifedos-logo-bg.png',
             sizes: '512x512',
             type: 'image/png',
-            purpose: 'any',
+            purpose: 'any maskable',
           },
         ],
       },
