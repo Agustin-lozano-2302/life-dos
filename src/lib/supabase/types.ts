@@ -23,6 +23,7 @@ export type Database = {
           id: string
           sort_order: number | null
           title: string
+          user_id: string | null
         }
         Insert: {
           category?: string | null
@@ -32,6 +33,7 @@ export type Database = {
           id?: string
           sort_order?: number | null
           title: string
+          user_id?: string | null
         }
         Update: {
           category?: string | null
@@ -41,6 +43,7 @@ export type Database = {
           id?: string
           sort_order?: number | null
           title?: string
+          user_id?: string | null
         }
         Relationships: []
       }
@@ -55,6 +58,7 @@ export type Database = {
           target_value: number
           title: string
           unit: string
+          user_id: string | null
         }
         Insert: {
           created_at?: string
@@ -66,6 +70,7 @@ export type Database = {
           target_value: number
           title: string
           unit: string
+          user_id?: string | null
         }
         Update: {
           created_at?: string
@@ -77,6 +82,7 @@ export type Database = {
           target_value?: number
           title?: string
           unit?: string
+          user_id?: string | null
         }
         Relationships: [
           {
@@ -102,6 +108,7 @@ export type Database = {
           entity_type: string
           id: string
           note_id: string
+          user_id: string | null
         }
         Insert: {
           created_at?: string
@@ -109,6 +116,7 @@ export type Database = {
           entity_type: string
           id?: string
           note_id: string
+          user_id?: string | null
         }
         Update: {
           created_at?: string
@@ -116,6 +124,7 @@ export type Database = {
           entity_type?: string
           id?: string
           note_id?: string
+          user_id?: string | null
         }
         Relationships: [
           {
@@ -135,6 +144,7 @@ export type Database = {
           id: string
           title: string
           updated_at: string
+          user_id: string | null
         }
         Insert: {
           category?: string | null
@@ -143,6 +153,7 @@ export type Database = {
           id?: string
           title: string
           updated_at?: string
+          user_id?: string | null
         }
         Update: {
           category?: string | null
@@ -151,6 +162,7 @@ export type Database = {
           id?: string
           title?: string
           updated_at?: string
+          user_id?: string | null
         }
         Relationships: []
       }
@@ -163,6 +175,7 @@ export type Database = {
           sort_order: number | null
           status: string
           title: string
+          user_id: string | null
         }
         Insert: {
           created_at?: string
@@ -172,6 +185,7 @@ export type Database = {
           sort_order?: number | null
           status?: string
           title: string
+          user_id?: string | null
         }
         Update: {
           created_at?: string
@@ -181,6 +195,7 @@ export type Database = {
           sort_order?: number | null
           status?: string
           title?: string
+          user_id?: string | null
         }
         Relationships: [
           {
@@ -200,6 +215,7 @@ export type Database = {
           id: string
           status: string
           title: string
+          user_id: string | null
         }
         Insert: {
           created_at?: string
@@ -208,6 +224,7 @@ export type Database = {
           id?: string
           status?: string
           title: string
+          user_id?: string | null
         }
         Update: {
           created_at?: string
@@ -216,6 +233,7 @@ export type Database = {
           id?: string
           status?: string
           title?: string
+          user_id?: string | null
         }
         Relationships: []
       }
@@ -225,18 +243,21 @@ export type Database = {
           date: string
           id: string
           task_id: string
+          user_id: string | null
         }
         Insert: {
           created_at?: string
           date: string
           id?: string
           task_id: string
+          user_id?: string | null
         }
         Update: {
           created_at?: string
           date?: string
           id?: string
           task_id?: string
+          user_id?: string | null
         }
         Relationships: [
           {
