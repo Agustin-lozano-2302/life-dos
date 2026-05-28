@@ -4,6 +4,7 @@ import {
   fetchProjects,
   fetchProject,
   fetchProjectTasks,
+  fetchAllProjectTasks,
   createProject,
   updateProject,
   deleteProject,
@@ -179,5 +180,29 @@ describe('deleteProjectTask', () => {
 
     await deleteProjectTask('ptask-1')
     expect(eqMock).toHaveBeenCalledWith('id', 'ptask-1')
+  })
+})
+
+describe('fetchAllProjectTasks', () => {
+  it('returns all project tasks ordered by created_at', async () => {
+    mockFrom.mockReturnValueOnce({
+      select: vi.fn().mockReturnValue({
+        order: vi.fn().mockResolvedValue({ data: [mockTask], error: null }),
+      }),
+    } as any)
+
+    const result = await fetchAllProjectTasks()
+    expect(result).toEqual([mockTask])
+    expect(mockFrom).toHaveBeenCalledWith('project_tasks')
+  })
+
+  it('throws when supabase returns an error', async () => {
+    mockFrom.mockReturnValueOnce({
+      select: vi.fn().mockReturnValue({
+        order: vi.fn().mockResolvedValue({ data: null, error: { message: 'DB error' } }),
+      }),
+    } as any)
+
+    await expect(fetchAllProjectTasks()).rejects.toMatchObject({ message: 'DB error' })
   })
 })

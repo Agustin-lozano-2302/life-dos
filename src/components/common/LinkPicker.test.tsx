@@ -14,6 +14,9 @@ vi.mock('@/hooks/useProjects', () => ({
 vi.mock('@/hooks/useGoals', () => ({
   useGoals: () => ({ goals: [{ id: 'g1', title: 'Run 100km' }] }),
 }))
+vi.mock('@/hooks/useAllProjectTasks', () => ({
+  useAllProjectTasks: () => ({ projectTasks: [{ id: 'pt1', title: 'Fix login bug' }] }),
+}))
 
 function wrap(ui: React.ReactElement) {
   const qc = new QueryClient()
@@ -36,6 +39,7 @@ describe('LinkPicker', () => {
     expect(screen.getByText('Morning run')).toBeInTheDocument()
     expect(screen.getByText('My Project')).toBeInTheDocument()
     expect(screen.getByText('Run 100km')).toBeInTheDocument()
+    expect(screen.getByText('Fix login bug')).toBeInTheDocument()
   })
 
   it('filters results on input', async () => {
@@ -65,5 +69,10 @@ describe('LinkPicker', () => {
     wrap(<LinkPicker open={true} onClose={onClose} onSelect={vi.fn()} />)
     await user.keyboard('{Escape}')
     expect(onClose).toHaveBeenCalledTimes(1)
+  })
+
+  it('shows project tasks in results', () => {
+    wrap(<LinkPicker open={true} onClose={vi.fn()} onSelect={vi.fn()} />)
+    expect(screen.getByText('Fix login bug')).toBeInTheDocument()
   })
 })

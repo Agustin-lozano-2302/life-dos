@@ -94,3 +94,12 @@ export async function deleteProjectTask(id: string): Promise<void> {
     .eq('id', id)
   if (error) throw error
 }
+
+export async function fetchAllProjectTasks(): Promise<ProjectTask[]> {
+  const { data, error } = await supabase
+    .from('project_tasks')
+    .select('*')
+    .order('created_at', { ascending: true })
+  if (error) throw error
+  return data as ProjectTask[]
+}

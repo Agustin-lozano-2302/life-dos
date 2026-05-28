@@ -3,6 +3,7 @@ import { Search, X } from 'lucide-react'
 import { useAllTasks } from '@/hooks/useAllTasks'
 import { useProjects } from '@/hooks/useProjects'
 import { useGoals } from '@/hooks/useGoals'
+import { useAllProjectTasks } from '@/hooks/useAllProjectTasks'
 import type { NoteEntityType } from '@/types/notes'
 
 export interface LinkSelection {
@@ -25,9 +26,10 @@ interface EntityEntry {
 }
 
 const GROUP_COLORS: Record<string, string> = {
-  'Hábitos':   'text-orange-300',
-  'Proyectos': 'text-indigo-300',
-  'Goals':     'text-emerald-300',
+  'Hábitos':             'text-orange-300',
+  'Proyectos':           'text-indigo-300',
+  'Goals':               'text-emerald-300',
+  'Tareas de proyecto':  'text-indigo-200',
 }
 
 export function LinkPicker({ open, onClose, onSelect }: LinkPickerProps) {
@@ -35,6 +37,7 @@ export function LinkPicker({ open, onClose, onSelect }: LinkPickerProps) {
   const { tasks } = useAllTasks()
   const { projects } = useProjects()
   const { goals } = useGoals()
+  const { projectTasks } = useAllProjectTasks()
 
   useEffect(() => {
     if (!open) return
@@ -55,6 +58,12 @@ export function LinkPicker({ open, onClose, onSelect }: LinkPickerProps) {
     ...tasks.map((t) => ({ entityType: 'daily_task' as NoteEntityType, entityId: t.id, label: t.title, group: 'Hábitos' })),
     ...projects.map((p) => ({ entityType: 'project' as NoteEntityType, entityId: p.id, label: p.title, group: 'Proyectos' })),
     ...goals.map((g) => ({ entityType: 'goal' as NoteEntityType, entityId: g.id, label: g.title, group: 'Goals' })),
+    ...projectTasks.map((t) => ({
+      entityType: 'project_task' as NoteEntityType,
+      entityId: t.id,
+      label: t.title,
+      group: 'Tareas de proyecto',
+    })),
   ]
 
   const filtered = query.trim()
