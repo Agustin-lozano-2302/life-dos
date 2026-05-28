@@ -43,7 +43,7 @@ export function useProjectMutations() {
   })
 
   const deleteProjectTask = useMutation({
-    mutationFn: ({ id, projectId }: { id: string; projectId: string }) => deleteProjectTaskFn(id),
+    mutationFn: ({ id }: { id: string; projectId: string }) => deleteProjectTaskFn(id),
     onSuccess: (_data, variables) =>
       queryClient.invalidateQueries({ queryKey: ['project-tasks', variables.projectId] }),
   })

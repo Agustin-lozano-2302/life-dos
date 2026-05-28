@@ -26,7 +26,7 @@ export function GlassCard({
   ...props
 }: GlassCardProps) {
   const isCustom = tint === 'custom' && !!hex
-  const tintEntry = isCustom ? null : (TINT_CLASSES[tint] ?? TINT_CLASSES.neutral)
+  const tintEntry = isCustom ? null : (TINT_CLASSES[tint as keyof typeof TINT_CLASSES] ?? TINT_CLASSES.neutral)
 
   const customStyle: CSSProperties = isCustom
     ? { backgroundColor: `${hex}1a`, borderColor: `${hex}40`, ...style }

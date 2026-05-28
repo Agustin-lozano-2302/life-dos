@@ -10,7 +10,7 @@ const items: DotMenuItem[] = [
 
 describe('DotMenu', () => {
   beforeEach(() => {
-    items.forEach((i) => vi.clearAllMocks())
+    items.forEach(() => vi.clearAllMocks())
   })
 
   it('renders trigger button', () => {

@@ -1,11 +1,16 @@
+import type { SupabaseClient } from '@supabase/supabase-js'
 import supabase from '@/lib/supabase/client'
 import type { Attachment, AttachmentWithUrl, AttachmentEntityType, CreateAttachmentInput } from '@/types/attachments'
+
+// attachments table exists in the DB but is not yet reflected in generated types;
+// cast to untyped client so supabase-js doesn't reject the table name.
+const db = supabase as unknown as SupabaseClient
 
 export async function fetchAttachments(
   entityType: AttachmentEntityType,
   entityId: string,
 ): Promise<AttachmentWithUrl[]> {
-  const { data, error } = await supabase
+  const { data, error } = await db
     .from('attachments')
     .select('*')
     .eq('entity_type', entityType)
@@ -13,7 +18,7 @@ export async function fetchAttachments(
     .order('created_at', { ascending: true })
   if (error) throw error
 
-  const attachments = data as Attachment[]
+  const attachments = (data ?? []) as Attachment[]
   if (attachments.length === 0) return []
 
   const { data: urlData, error: urlError } = await supabase.storage
@@ -45,7 +50,7 @@ export async function uploadFile(
 }
 
 export async function createAttachment(input: CreateAttachmentInput): Promise<Attachment> {
-  const { data, error } = await supabase
+  const { data, error } = await db
     .from('attachments')
     .insert(input)
     .select()
@@ -60,7 +65,7 @@ export async function deleteAttachment(id: string, storagePath: string): Promise
     .remove([storagePath])
   if (storageError) throw storageError
 
-  const { error } = await supabase
+  const { error } = await db
     .from('attachments')
     .delete()
     .eq('id', id)
