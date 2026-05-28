@@ -3,10 +3,10 @@ import { cn } from '@/lib/utils'
 import type { Project, CreateProjectInput, UpdateProjectInput, ProjectStatus } from '@/types/projects'
 
 const STATUS_OPTIONS: { value: ProjectStatus; label: string }[] = [
-  { value: 'active', label: 'Active' },
-  { value: 'paused', label: 'Paused' },
-  { value: 'completed', label: 'Completed' },
-  { value: 'archived', label: 'Archived' },
+  { value: 'active', label: 'Activo' },
+  { value: 'paused', label: 'Pausado' },
+  { value: 'completed', label: 'Completado' },
+  { value: 'archived', label: 'Archivado' },
 ]
 
 interface ProjectFormProps {
@@ -37,40 +37,47 @@ export function ProjectForm({ initial, onSubmit, onCancel, isPending = false }: 
   }
 
   return (
-    <form onSubmit={handleSubmit} className="space-y-4 rounded-xl border border-border bg-card p-4">
+    <form
+      onSubmit={handleSubmit}
+      className="space-y-4 rounded-[18px] border border-white/[0.12] bg-white/7 p-4 backdrop-blur-2xl"
+    >
       <div>
-        <label htmlFor="proj-title" className="text-xs font-medium text-muted-foreground">Title</label>
+        <label htmlFor="proj-title" className="text-xs font-semibold uppercase tracking-widest text-white/40">
+          Título
+        </label>
         <input
           id="proj-title"
           value={title}
           onChange={(e) => setTitle(e.target.value)}
-          placeholder="e.g. Launch website"
-          className="mt-1 w-full rounded-md border border-input bg-background px-3 py-2 text-sm outline-none focus:ring-1 focus:ring-ring"
+          placeholder="Ej. Lanzar sitio web"
+          className="mt-1 w-full rounded-[12px] border border-white/[0.12] bg-white/[0.05] px-3 py-2 text-sm text-white placeholder-white/25 outline-none focus:border-white/25"
         />
       </div>
 
       <div>
-        <label htmlFor="proj-desc" className="text-xs font-medium text-muted-foreground">
-          Description <span className="text-muted-foreground/60">(optional)</span>
+        <label htmlFor="proj-desc" className="text-xs font-semibold uppercase tracking-widest text-white/40">
+          Descripción <span className="normal-case font-normal text-white/25">(opcional)</span>
         </label>
         <textarea
           id="proj-desc"
           value={description}
           onChange={(e) => setDescription(e.target.value)}
-          placeholder="What is this project about?"
+          placeholder="¿De qué trata este proyecto?"
           rows={3}
-          className="mt-1 w-full resize-none rounded-md border border-input bg-background px-3 py-2 text-sm outline-none focus:ring-1 focus:ring-ring"
+          className="mt-1 w-full resize-none rounded-[12px] border border-white/[0.12] bg-white/[0.05] px-3 py-2 text-sm text-white placeholder-white/25 outline-none focus:border-white/25"
         />
       </div>
 
       <div className="flex gap-3">
         <div className="flex-1">
-          <label htmlFor="proj-status" className="text-xs font-medium text-muted-foreground">Status</label>
+          <label htmlFor="proj-status" className="text-xs font-semibold uppercase tracking-widest text-white/40">
+            Estado
+          </label>
           <select
             id="proj-status"
             value={status}
             onChange={(e) => setStatus(e.target.value as ProjectStatus)}
-            className="mt-1 w-full rounded-md border border-input bg-background px-3 py-2 text-sm outline-none focus:ring-1 focus:ring-ring"
+            className="mt-1 w-full rounded-[12px] border border-white/[0.12] bg-white/[0.05] px-3 py-2 text-sm text-white outline-none focus:border-white/25"
           >
             {STATUS_OPTIONS.map((opt) => (
               <option key={opt.value} value={opt.value}>{opt.label}</option>
@@ -79,15 +86,15 @@ export function ProjectForm({ initial, onSubmit, onCancel, isPending = false }: 
         </div>
 
         <div className="flex-1">
-          <label htmlFor="proj-due" className="text-xs font-medium text-muted-foreground">
-            Due date <span className="text-muted-foreground/60">(optional)</span>
+          <label htmlFor="proj-due" className="text-xs font-semibold uppercase tracking-widest text-white/40">
+            Fecha límite <span className="normal-case font-normal text-white/25">(opcional)</span>
           </label>
           <input
             id="proj-due"
             type="date"
             value={dueDate}
             onChange={(e) => setDueDate(e.target.value)}
-            className="mt-1 w-full rounded-md border border-input bg-background px-3 py-2 text-sm outline-none focus:ring-1 focus:ring-ring"
+            className="mt-1 w-full rounded-[12px] border border-white/[0.12] bg-white/[0.05] px-3 py-2 text-sm text-white outline-none focus:border-white/25"
           />
         </div>
       </div>
@@ -97,18 +104,18 @@ export function ProjectForm({ initial, onSubmit, onCancel, isPending = false }: 
           type="submit"
           disabled={!canSubmit}
           className={cn(
-            'flex-1 rounded-md bg-primary px-4 py-2 text-sm font-medium text-primary-foreground transition-opacity',
-            !canSubmit && 'cursor-not-allowed opacity-50',
+            'flex-1 rounded-[12px] bg-indigo-500/25 px-4 py-2 text-sm font-medium text-indigo-200 transition-opacity',
+            !canSubmit && 'cursor-not-allowed opacity-40',
           )}
         >
-          {isPending ? 'Saving…' : 'Save'}
+          {isPending ? 'Guardando…' : 'Guardar'}
         </button>
         <button
           type="button"
           onClick={onCancel}
-          className="rounded-md border border-border px-4 py-2 text-sm font-medium"
+          className="rounded-[12px] border border-white/[0.12] px-4 py-2 text-sm font-medium text-white/50 hover:text-white"
         >
-          Cancel
+          Cancelar
         </button>
       </div>
     </form>
