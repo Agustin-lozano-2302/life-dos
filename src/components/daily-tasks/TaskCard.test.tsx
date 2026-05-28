@@ -28,11 +28,6 @@ describe('TaskCard', () => {
     expect(onToggle).toHaveBeenCalledWith('task-1', false)
   })
 
-  it('shows DotMenu trigger', () => {
-    render(<TaskCard task={task} completion={undefined} onToggle={vi.fn()} />)
-    expect(screen.getByRole('button', { name: /open menu/i })).toBeInTheDocument()
-  })
-
   it('applies opacity when completed', () => {
     const completion: TaskCompletion = { id: 'c1', task_id: 'task-1', date: '2026-05-28', created_at: '' }
     const { container } = render(<TaskCard task={task} completion={completion} onToggle={vi.fn()} />)

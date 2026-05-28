@@ -1,6 +1,5 @@
 import { Check } from 'lucide-react'
 import { cn } from '@/lib/utils'
-import { DotMenu } from '@/components/common/DotMenu'
 import type { DailyTask, TaskCompletion } from '@/types/daily-tasks'
 
 interface TaskCardProps {
@@ -30,11 +29,6 @@ export function TaskCard({ task, completion, onToggle }: TaskCardProps) {
         </p>
         {task.category && <p className="text-xs text-white/40">{task.category}</p>}
       </div>
-      <DotMenu
-        items={[
-          { label: 'Vincular nota', onClick: () => {} },
-        ]}
-      />
       <button
         type="button"
         onClick={() => onToggle(task.id, isCompleted)}
