@@ -21,7 +21,7 @@ export function NotesStatsCard({ notes }: NotesStatsCardProps) {
         <p className="text-xs text-muted-foreground">created this period</p>
       </div>
       {sorted.length > 0 && (
-        <div className="space-y-1">
+        <div className="space-y-3">
           {sorted.slice(0, 4).map(([cat, count]) => (
             <div key={cat} className="flex items-center justify-between text-xs">
               <span className="text-muted-foreground">{cat}</span>

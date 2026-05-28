@@ -28,7 +28,7 @@ export function TaskList({ tasks, completions, onToggle }: TaskListProps) {
   }
 
   return (
-    <div className="space-y-1">
+    <div className="space-y-3">
       {pending.map((task) => (
         <TaskCard
           key={task.id}

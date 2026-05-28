@@ -36,7 +36,7 @@ export function KanbanBoard({ tasks, onMoveTask, onDeleteTask, onAddTask }: Kanb
           addForm={addingTo === status ? (
             <form
               onSubmit={(e) => { e.preventDefault(); handleAdd(status) }}
-              className="mt-2 space-y-1.5"
+              className="mt-2 space-y-3.5"
             >
               <input
                 autoFocus

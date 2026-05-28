@@ -18,7 +18,7 @@ export function DoneSection({ tasks, completions, onToggle }: DoneSectionProps) 
       <p className="mb-2 text-xs font-medium uppercase tracking-wide text-muted-foreground">
         Done today · {done.length}
       </p>
-      <div className="space-y-1">
+      <div className="space-y-3">
         {done.map((task) => (
           <TaskCard
             key={task.id}
