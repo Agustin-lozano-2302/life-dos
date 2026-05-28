@@ -2,7 +2,7 @@ import { render, screen } from '@testing-library/react'
 import { MemoryRouter } from 'react-router-dom'
 import { BottomNav } from './BottomNav'
 
-function renderNav(path = '/focus') {
+function renderNav(path = '/habitos') {
   return render(
     <MemoryRouter initialEntries={[path]}>
       <BottomNav />
@@ -11,17 +11,18 @@ function renderNav(path = '/focus') {
 }
 
 describe('BottomNav', () => {
-  it('renders all four tab labels', () => {
+  it('renders all five tab labels', () => {
     renderNav()
-    expect(screen.getByText('Focus')).toBeInTheDocument()
+    expect(screen.getByText('Hábitos')).toBeInTheDocument()
     expect(screen.getByText('Projects')).toBeInTheDocument()
     expect(screen.getByText('Goals')).toBeInTheDocument()
     expect(screen.getByText('Notes')).toBeInTheDocument()
+    expect(screen.getByText('Dashboard')).toBeInTheDocument()
   })
 
   it('each tab links to the correct route', () => {
     renderNav()
-    expect(screen.getByText('Focus').closest('a')).toHaveAttribute('href', '/focus')
+    expect(screen.getByText('Hábitos').closest('a')).toHaveAttribute('href', '/habitos')
     expect(screen.getByText('Projects').closest('a')).toHaveAttribute('href', '/projects')
     expect(screen.getByText('Goals').closest('a')).toHaveAttribute('href', '/goals')
     expect(screen.getByText('Notes').closest('a')).toHaveAttribute('href', '/notes')
@@ -34,6 +35,6 @@ describe('BottomNav', () => {
 
   it('does not mark inactive tabs with aria-current', () => {
     renderNav('/projects')
-    expect(screen.getByText('Focus').closest('a')).not.toHaveAttribute('aria-current', 'page')
+    expect(screen.getByText('Hábitos').closest('a')).not.toHaveAttribute('aria-current', 'page')
   })
 })

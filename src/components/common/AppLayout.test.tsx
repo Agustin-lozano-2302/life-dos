@@ -15,11 +15,11 @@ vi.mock('@/lib/supabase/client', () => ({
 describe('AppLayout', () => {
   it('renders header and bottom nav', () => {
     render(
-      <MemoryRouter initialEntries={['/focus']}>
+      <MemoryRouter initialEntries={['/habitos']}>
         <AppLayout />
       </MemoryRouter>,
     )
     expect(screen.getByText("Life Do's")).toBeInTheDocument()
-    expect(screen.getByText('Focus')).toBeInTheDocument()
+    expect(screen.getByText('Hábitos')).toBeInTheDocument()
   })
 })
