@@ -8,6 +8,7 @@ export interface Goal {
   linked_daily_task_id: string | null
   linked_project_id: string | null
   created_at: string
+  updated_at?: string
 }
 
 export interface CreateGoalInput {
