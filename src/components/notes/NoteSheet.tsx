@@ -4,6 +4,7 @@ import { GlassSheet } from '@/components/common/GlassSheet'
 import { DotMenu } from '@/components/common/DotMenu'
 import { RelationChips } from '@/components/common/RelationChips'
 import { LinkPicker } from '@/components/common/LinkPicker'
+import { AttachmentStrip } from '@/components/common/AttachmentStrip'
 import { useNoteMutations } from '@/hooks/useNoteMutations'
 import { useNoteLinks, useNoteLinkMutations } from '@/hooks/useNoteLinks'
 import { useAllTasks } from '@/hooks/useAllTasks'
@@ -130,6 +131,16 @@ export function NoteSheet({ note, onClose, onDelete }: NoteSheetProps) {
               </p>
             )}
           </div>
+
+          {/* Adjuntos */}
+          {!editing && (
+            <div className="border-t border-white/[0.08] px-4 py-3">
+              <p className="mb-2 text-[10px] font-bold uppercase tracking-widest text-white/25">
+                Adjuntos
+              </p>
+              <AttachmentStrip entityType="note" entityId={note.id} />
+            </div>
+          )}
 
           {/* Relations (read mode only) */}
           {!editing && (

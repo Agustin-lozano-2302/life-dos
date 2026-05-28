@@ -28,6 +28,11 @@ vi.mock('@/hooks/useGoals', () => ({
   useGoals: () => ({ goals: [] }),
 }))
 
+vi.mock('@/hooks/useAttachments', () => ({
+  useAttachments: () => ({ attachments: [] }),
+  useAttachmentMutations: () => ({ upload: vi.fn(), remove: vi.fn(), isUploading: false }),
+}))
+
 const note: Note = {
   id: 'note-1',
   title: 'Stand-up notes',
@@ -74,5 +79,11 @@ describe('NoteSheet', () => {
   it('shows Vincular button in RelationChips', () => {
     wrap(<NoteSheet note={note} onClose={vi.fn()} onDelete={vi.fn()} />)
     expect(screen.getByRole('button', { name: /vincular/i })).toBeInTheDocument()
+  })
+
+  it('shows Adjuntos section in read mode', () => {
+    wrap(<NoteSheet note={note} onClose={vi.fn()} onDelete={vi.fn()} />)
+    expect(screen.getByText('Adjuntos')).toBeInTheDocument()
+    expect(screen.getByRole('button', { name: /adjuntar archivo/i })).toBeInTheDocument()
   })
 })
