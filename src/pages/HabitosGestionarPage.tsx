@@ -76,10 +76,7 @@ export default function HabitosGestionarPage() {
                 className="h-3 w-3 shrink-0 rounded-full"
                 style={{ backgroundColor: task.color ?? '#6366f1' }}
               />
-              <button
-                className="min-w-0 flex-1 text-left"
-                onClick={() => { setShowCreate(false); setEditing(task) }}
-              >
+              <div className="min-w-0 flex-1">
                 <p className="text-sm font-medium text-white">{task.title}</p>
                 <div className="mt-0.5 flex gap-1">
                   {DAY_LABELS.map((label, i) => (
@@ -94,7 +91,7 @@ export default function HabitosGestionarPage() {
                   ))}
                 </div>
                 {task.category && <p className="text-xs text-white/40">{task.category}</p>}
-              </button>
+              </div>
               <DotMenu
                 items={[
                   { label: 'Editar', onClick: () => { setShowCreate(false); setEditing(task) } },

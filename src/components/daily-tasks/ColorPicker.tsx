@@ -29,10 +29,10 @@ export function ColorPicker({ value, onChange }: ColorPickerProps) {
         aria-label="No color"
         aria-pressed={value === null}
         className={cn(
-          'flex h-7 w-7 items-center justify-center rounded-full border-2 bg-muted text-xs text-muted-foreground transition-all',
+          'flex h-7 w-7 items-center justify-center rounded-full border-2 bg-white/[0.05] text-xs text-white/40 transition-all',
           value === null
-            ? 'border-primary ring-2 ring-primary ring-offset-1'
-            : 'border-transparent',
+            ? 'border-white/50 ring-2 ring-white/30 ring-offset-1 ring-offset-transparent'
+            : 'border-white/[0.12]',
         )}
       >
         ✕
@@ -48,7 +48,7 @@ export function ColorPicker({ value, onChange }: ColorPickerProps) {
           className={cn(
             'h-7 w-7 rounded-full border-2 transition-all',
             value === color
-              ? 'border-primary ring-2 ring-primary ring-offset-1'
+              ? 'border-white/50 ring-2 ring-white/30 ring-offset-1 ring-offset-transparent'
               : 'border-transparent',
           )}
           style={{ backgroundColor: color }}
@@ -60,10 +60,10 @@ export function ColorPicker({ value, onChange }: ColorPickerProps) {
         onClick={() => inputRef.current?.click()}
         aria-label="Custom color"
         className={cn(
-          'flex h-7 w-7 items-center justify-center rounded-full border-2 border-dashed text-xs text-muted-foreground transition-all',
+          'flex h-7 w-7 items-center justify-center rounded-full border-2 border-dashed text-xs text-white/40 transition-all',
           isCustom
-            ? 'border-primary ring-2 ring-primary ring-offset-1'
-            : 'border-muted-foreground',
+            ? 'border-white/50 ring-2 ring-white/30 ring-offset-1 ring-offset-transparent'
+            : 'border-white/[0.25]',
         )}
         style={isCustom ? { backgroundColor: value! } : undefined}
       >

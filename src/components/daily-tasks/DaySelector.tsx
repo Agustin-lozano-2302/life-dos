@@ -1,13 +1,14 @@
+// src/components/daily-tasks/DaySelector.tsx
 import { cn } from '@/lib/utils'
 
 const DAYS = [
-  { label: 'Sun', value: 0 },
-  { label: 'Mon', value: 1 },
-  { label: 'Tue', value: 2 },
-  { label: 'Wed', value: 3 },
-  { label: 'Thu', value: 4 },
-  { label: 'Fri', value: 5 },
-  { label: 'Sat', value: 6 },
+  { label: 'D', value: 0 },
+  { label: 'L', value: 1 },
+  { label: 'M', value: 2 },
+  { label: 'X', value: 3 },
+  { label: 'J', value: 4 },
+  { label: 'V', value: 5 },
+  { label: 'S', value: 6 },
 ] as const
 
 interface DaySelectorProps {
@@ -34,10 +35,10 @@ export function DaySelector({ value, onChange }: DaySelectorProps) {
           onClick={() => toggle(day)}
           aria-pressed={value.includes(day)}
           className={cn(
-            'h-8 w-8 rounded-full text-xs font-medium transition-colors',
+            'h-8 w-8 rounded-full text-xs font-semibold transition-colors',
             value.includes(day)
-              ? 'bg-primary text-primary-foreground'
-              : 'bg-muted text-muted-foreground hover:bg-accent',
+              ? 'bg-orange-500/70 text-white shadow-[0_0_12px_rgba(249,115,22,0.4)]'
+              : 'border border-white/[0.12] bg-white/[0.05] text-white/30 hover:border-white/25 hover:text-white/60',
           )}
         >
           {label}
