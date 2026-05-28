@@ -1,4 +1,4 @@
-export type NoteEntityType = 'daily_task' | 'project' | 'goal'
+export type NoteEntityType = 'daily_task' | 'project' | 'project_task' | 'goal'
 
 export interface Note {
   id: string

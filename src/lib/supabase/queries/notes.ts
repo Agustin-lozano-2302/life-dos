@@ -63,3 +63,16 @@ export async function removeNoteLink(noteId: string, entityId: string): Promise<
     .eq('entity_id', entityId)
   if (error) throw error
 }
+
+export async function fetchNoteLinksForEntity(
+  entityType: NoteEntityType,
+  entityId: string,
+): Promise<NoteLink[]> {
+  const { data, error } = await supabase
+    .from('note_links')
+    .select('*')
+    .eq('entity_type', entityType)
+    .eq('entity_id', entityId)
+  if (error) throw error
+  return data as NoteLink[]
+}

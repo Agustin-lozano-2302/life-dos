@@ -3,6 +3,7 @@ import supabase from '@/lib/supabase/client'
 import {
   fetchNotes,
   fetchNoteLinks,
+  fetchNoteLinksForEntity,
   createNote,
   updateNote,
   deleteNote,
@@ -142,5 +143,33 @@ describe('removeNoteLink', () => {
     await removeNoteLink('note-1', 'proj-1')
     expect(eq1Mock).toHaveBeenCalledWith('note_id', 'note-1')
     expect(eq2Mock).toHaveBeenCalledWith('entity_id', 'proj-1')
+  })
+})
+
+describe('fetchNoteLinksForEntity', () => {
+  it('fetches note links filtered by entity type and id', async () => {
+    const mockLinks: NoteLink[] = [
+      { id: 'l1', note_id: 'n1', entity_type: 'goal', entity_id: 'g1', created_at: '' },
+    ]
+    const eq2Mock = vi.fn().mockResolvedValue({ data: mockLinks, error: null })
+    const eq1Mock = vi.fn().mockReturnValue({ eq: eq2Mock })
+    mockFrom.mockReturnValueOnce({
+      select: vi.fn().mockReturnValue({ eq: eq1Mock }),
+    } as any)
+
+    const result = await fetchNoteLinksForEntity('goal', 'g1')
+    expect(result).toEqual(mockLinks)
+    expect(eq1Mock).toHaveBeenCalledWith('entity_type', 'goal')
+    expect(eq2Mock).toHaveBeenCalledWith('entity_id', 'g1')
+  })
+
+  it('throws when supabase returns an error', async () => {
+    const eq2Mock = vi.fn().mockResolvedValue({ data: null, error: { message: 'DB error' } })
+    const eq1Mock = vi.fn().mockReturnValue({ eq: eq2Mock })
+    mockFrom.mockReturnValueOnce({
+      select: vi.fn().mockReturnValue({ eq: eq1Mock }),
+    } as any)
+
+    await expect(fetchNoteLinksForEntity('project', 'p1')).rejects.toMatchObject({ message: 'DB error' })
   })
 })
