@@ -11,6 +11,7 @@ import { NotesStatsCard } from '@/components/dashboard/NotesStatsCard'
 import { SuggestionsSection } from '@/components/dashboard/SuggestionsSection'
 import { generateSuggestions } from '@/lib/suggestions'
 import { getTodayString } from '@/utils/date'
+import { GlassCard } from '@/components/common/GlassCard'
 
 export default function DashboardPage() {
   const period = useDashboardStore((s) => s.period)
@@ -32,13 +33,13 @@ export default function DashboardPage() {
   })
 
   if (isLoading) {
-    return <div className="py-8 text-center text-sm text-muted-foreground">Loading…</div>
+    return <div className="py-8 text-center text-sm text-white/40">Loading…</div>
   }
 
   return (
     <div className="py-4">
       <div className="mb-4 flex items-center justify-between">
-        <h1 className="text-lg font-semibold">Dashboard</h1>
+        <h1 className="text-[22px] font-extrabold tracking-[-0.4px] text-white">Dashboard</h1>
       </div>
 
       <div className="mb-6">
@@ -48,12 +49,12 @@ export default function DashboardPage() {
       <div className="space-y-4">
         <HabitStatsCard tasks={tasks} completions={completions} range={range} today={today} />
 
-        <div className="rounded-xl border border-border bg-card p-4">
-          <h3 className="mb-3 text-xs font-semibold uppercase tracking-wide text-muted-foreground">
+        <GlassCard tint="neutral" className="p-4">
+          <h3 className="mb-3 text-xs font-semibold uppercase tracking-wide text-white/40">
             Activity — last year
           </h3>
           <ActivityHeatmap completions={allCompletions} today={today} />
-        </div>
+        </GlassCard>
 
         <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
           <GoalProgressSection goals={goals} />

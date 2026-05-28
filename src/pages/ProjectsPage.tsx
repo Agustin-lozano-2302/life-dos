@@ -15,13 +15,13 @@ export default function ProjectsPage() {
   }
 
   if (isLoading) {
-    return <div className="py-8 text-center text-sm text-muted-foreground">Loading…</div>
+    return <div className="py-8 text-center text-sm text-white/40">Loading…</div>
   }
 
   return (
     <div className="py-4">
       <div className="mb-4 flex items-center justify-between">
-        <h1 className="text-lg font-semibold">Projects</h1>
+        <h1 className="text-[22px] font-extrabold tracking-[-0.4px] text-white">Projects</h1>
       </div>
 
       {showForm ? (
@@ -35,7 +35,7 @@ export default function ProjectsPage() {
       ) : (
         <button
           onClick={() => setShowForm(true)}
-          className="mb-4 w-full rounded-xl border border-dashed border-border py-3 text-sm text-muted-foreground transition-colors hover:border-primary hover:text-foreground"
+          className="mb-4 w-full rounded-[18px] border border-dashed border-white/[0.15] py-3 text-sm text-white/40 transition-colors hover:border-white/30 hover:text-white/70"
         >
           + New project
         </button>
@@ -46,7 +46,7 @@ export default function ProjectsPage() {
           <ProjectCard key={project.id} project={project} />
         ))}
         {projects.length === 0 && !showForm && (
-          <p className="py-8 text-center text-sm text-muted-foreground">
+          <p className="py-8 text-center text-sm text-white/40">
             No projects yet. Create one above.
           </p>
         )}

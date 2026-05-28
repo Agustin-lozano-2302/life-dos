@@ -40,15 +40,15 @@ export default function NotesPage() {
     : notes
 
   if (isLoading) {
-    return <div className="py-8 text-center text-sm text-muted-foreground">Loading…</div>
+    return <div className="py-8 text-center text-sm text-white/40">Loading…</div>
   }
 
   if (mode === 'create') {
     return (
       <div className="py-4">
         <div className="mb-4 flex items-center gap-2">
-          <button onClick={() => setMode('list')} className="text-muted-foreground hover:text-foreground">←</button>
-          <h1 className="text-lg font-semibold">New note</h1>
+          <button onClick={() => setMode('list')} className="text-white/40 hover:text-white">←</button>
+          <h1 className="text-[22px] font-extrabold tracking-[-0.4px] text-white">New note</h1>
         </div>
         <NoteEditor onSubmit={handleCreate} onCancel={() => setMode('list')} isPending={isCreating} />
       </div>
@@ -59,8 +59,8 @@ export default function NotesPage() {
     return (
       <div className="py-4">
         <div className="mb-4 flex items-center gap-2">
-          <button onClick={() => { setMode('list'); setEditing(null) }} className="text-muted-foreground hover:text-foreground">←</button>
-          <h1 className="text-lg font-semibold">Edit note</h1>
+          <button onClick={() => { setMode('list'); setEditing(null) }} className="text-white/40 hover:text-white">←</button>
+          <h1 className="text-[22px] font-extrabold tracking-[-0.4px] text-white">Edit note</h1>
         </div>
         <NoteEditor
           initial={editing}
@@ -75,10 +75,10 @@ export default function NotesPage() {
   return (
     <div className="py-4">
       <div className="mb-4 flex items-center justify-between">
-        <h1 className="text-lg font-semibold">Notes</h1>
+        <h1 className="text-[22px] font-extrabold tracking-[-0.4px] text-white">Notas</h1>
         <button
           onClick={() => setMode('create')}
-          className="rounded-lg bg-primary px-3 py-1.5 text-sm font-medium text-primary-foreground"
+          className="rounded-lg bg-violet-500/20 px-3 py-1.5 text-sm font-medium text-violet-200"
         >
           + New
         </button>
@@ -89,7 +89,7 @@ export default function NotesPage() {
         onChange={(e) => setSearch(e.target.value)}
         placeholder="Search notes…"
         aria-label="Search notes"
-        className="mb-4 w-full rounded-md border border-input bg-background px-3 py-2 text-sm outline-none focus:ring-1 focus:ring-ring"
+        className="mb-4 w-full rounded-md border border-white/[0.12] bg-white/7 px-3 py-2 text-sm text-white outline-none placeholder:text-white/30 focus:ring-1 focus:ring-white/20"
       />
 
       <div className="space-y-3">
@@ -97,7 +97,7 @@ export default function NotesPage() {
           <NoteCard key={note.id} note={note} onClick={handleOpen} onDelete={handleDelete} />
         ))}
         {filtered.length === 0 && (
-          <p className="py-8 text-center text-sm text-muted-foreground">
+          <p className="py-8 text-center text-sm text-white/40">
             {search ? 'No notes match your search.' : 'No notes yet. Create one above.'}
           </p>
         )}
