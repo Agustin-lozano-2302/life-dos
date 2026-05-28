@@ -6,6 +6,9 @@ import { RelationChips } from '@/components/common/RelationChips'
 import { LinkPicker } from '@/components/common/LinkPicker'
 import { useNoteMutations } from '@/hooks/useNoteMutations'
 import { useNoteLinks, useNoteLinkMutations } from '@/hooks/useNoteLinks'
+import { useAllTasks } from '@/hooks/useAllTasks'
+import { useProjects } from '@/hooks/useProjects'
+import { useGoals } from '@/hooks/useGoals'
 import type { Note, UpdateNoteInput, NoteLink } from '@/types/notes'
 import type { LinkSelection } from '@/components/common/LinkPicker'
 
@@ -24,11 +27,30 @@ export function NoteSheet({ note, onClose, onDelete }: NoteSheetProps) {
   const { addLink, removeLink } = useNoteLinkMutations(note?.id ?? '')
   const [pickerOpen, setPickerOpen] = useState(false)
 
+  const { tasks: allTasks } = useAllTasks()
+  const { projects: allProjects } = useProjects()
+  const { goals: allGoals } = useGoals()
+
+  function resolveLabel(entityType: NoteLink['entity_type'], entityId: string): string {
+    switch (entityType) {
+      case 'daily_task':
+        return allTasks.find((t) => t.id === entityId)?.title ?? entityId
+      case 'project':
+        return allProjects.find((p) => p.id === entityId)?.title ?? entityId
+      case 'goal':
+        return allGoals.find((g) => g.id === entityId)?.title ?? entityId
+      case 'project_task':
+        return entityId // will improve once useAllProjectTasks is available in cache
+      default:
+        return entityId
+    }
+  }
+
   const relations = noteLinks.map((nl: NoteLink) => ({
     id: nl.id,
     entityType: nl.entity_type,
     entityId: nl.entity_id,
-    label: nl.entity_id, // ID shown as label until entity resolution is added
+    label: resolveLabel(nl.entity_type, nl.entity_id),
   }))
 
   function handleAddLink(selection: LinkSelection) {

@@ -18,6 +18,16 @@ vi.mock('@/hooks/useNoteLinks', () => ({
   useNoteLinkMutations: () => ({ addLink: vi.fn(), removeLink: vi.fn() }),
 }))
 
+vi.mock('@/hooks/useAllTasks', () => ({
+  useAllTasks: () => ({ tasks: [] }),
+}))
+vi.mock('@/hooks/useProjects', () => ({
+  useProjects: () => ({ projects: [] }),
+}))
+vi.mock('@/hooks/useGoals', () => ({
+  useGoals: () => ({ goals: [] }),
+}))
+
 const note: Note = {
   id: 'note-1',
   title: 'Stand-up notes',
