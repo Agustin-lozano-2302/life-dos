@@ -2,8 +2,12 @@ import { useState } from 'react'
 import { X } from 'lucide-react'
 import { GlassSheet } from '@/components/common/GlassSheet'
 import { DotMenu } from '@/components/common/DotMenu'
+import { RelationChips } from '@/components/common/RelationChips'
+import { LinkPicker } from '@/components/common/LinkPicker'
 import { useNoteMutations } from '@/hooks/useNoteMutations'
-import type { Note, UpdateNoteInput } from '@/types/notes'
+import { useNoteLinks, useNoteLinkMutations } from '@/hooks/useNoteLinks'
+import type { Note, UpdateNoteInput, NoteLink } from '@/types/notes'
+import type { LinkSelection } from '@/components/common/LinkPicker'
 
 interface NoteSheetProps {
   note: Note | null
@@ -16,6 +20,20 @@ export function NoteSheet({ note, onClose, onDelete }: NoteSheetProps) {
   const [title, setTitle] = useState('')
   const [content, setContent] = useState('')
   const { updateNote, isUpdating } = useNoteMutations()
+  const { data: noteLinks = [] } = useNoteLinks(note?.id ?? '')
+  const { addLink, removeLink } = useNoteLinkMutations(note?.id ?? '')
+  const [pickerOpen, setPickerOpen] = useState(false)
+
+  const relations = noteLinks.map((nl: NoteLink) => ({
+    id: nl.id,
+    entityType: nl.entity_type,
+    entityId: nl.entity_id,
+    label: nl.entity_id, // ID shown as label until entity resolution is added
+  }))
+
+  function handleAddLink(selection: LinkSelection) {
+    addLink({ entityType: selection.entityType, entityId: selection.entityId })
+  }
 
   function openEdit() {
     if (!note) return
@@ -91,6 +109,23 @@ export function NoteSheet({ note, onClose, onDelete }: NoteSheetProps) {
             )}
           </div>
 
+          {/* Relations (read mode only) */}
+          {!editing && (
+            <div className="border-t border-white/[0.08] px-4 py-3">
+              <p className="mb-2 text-[10px] font-bold uppercase tracking-widest text-white/25">
+                Vínculos
+              </p>
+              <RelationChips
+                relations={relations}
+                onAddLink={() => setPickerOpen(true)}
+                onRemoveLink={(relId) => {
+                  const link = noteLinks.find((l: NoteLink) => l.id === relId)
+                  if (link) removeLink({ entityId: link.entity_id })
+                }}
+              />
+            </div>
+          )}
+
           {/* Footer */}
           {editing ? (
             <div className="flex gap-2 border-t border-white/[0.08] p-3">
@@ -115,6 +150,13 @@ export function NoteSheet({ note, onClose, onDelete }: NoteSheetProps) {
               </p>
             </div>
           )}
+
+          {/* LinkPicker */}
+          <LinkPicker
+            open={pickerOpen}
+            onClose={() => setPickerOpen(false)}
+            onSelect={handleAddLink}
+          />
         </>
       )}
     </GlassSheet>

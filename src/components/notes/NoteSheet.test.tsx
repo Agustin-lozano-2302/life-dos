@@ -60,4 +60,9 @@ describe('NoteSheet', () => {
     await user.click(screen.getByRole('menuitem', { name: 'Editar' }))
     expect(screen.getByRole('textbox', { name: /title/i })).toBeInTheDocument()
   })
+
+  it('shows Vincular button in RelationChips', () => {
+    wrap(<NoteSheet note={note} onClose={vi.fn()} onDelete={vi.fn()} />)
+    expect(screen.getByRole('button', { name: /vincular/i })).toBeInTheDocument()
+  })
 })
