@@ -15,7 +15,7 @@ export default function LoginPage() {
     setLoading(true)
     try {
       await signIn(email, password)
-      navigate('/focus', { replace: true })
+      navigate('/habitos', { replace: true })
     } catch (err) {
       setError(err instanceof Error ? err.message : 'Sign in failed')
     } finally {

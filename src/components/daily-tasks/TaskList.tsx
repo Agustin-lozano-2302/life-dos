@@ -16,7 +16,7 @@ export function TaskList({ tasks, completions, onToggle }: TaskListProps) {
     return (
       <p className="py-8 text-center text-sm text-muted-foreground">
         Nothing scheduled for today.{' '}
-        <Link to="/focus/manage" className="underline">
+        <Link to="/habitos/gestionar" className="underline">
           Manage →
         </Link>
       </p>
